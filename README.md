@@ -11,7 +11,7 @@ A script run at boot by init to make the disk LEDs flash on disk access.  Even t
 
 The script itself needs to run with root privileges, which it will when executed by init.  To be able to run it from a regular user account, you will need `sudo` installed.
 
-##### Installation
+#### Installation
 
 1\. Download the scrip and make sure it is executable.
 
