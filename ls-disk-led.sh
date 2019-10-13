@@ -19,7 +19,7 @@ fi
 case "$1" in
   start)
     echo "Turning disk activity LEDs on..."
-    # The output redirection needs to be in the privilaged process so
+    # The output redirection needs to be in the privileged process so
     #   the echo to /sys/class/leds/led\:* is wrapped in a /bin/sh
     $SUDO_CND /bin/sh <<EOS
         echo disk-read > /sys/class/leds/led\:hdd1\:red/trigger
@@ -28,8 +28,8 @@ EOS
     ;;
   stop)
     echo "Turning disk activity LEDs off..."
-    # The output redirection needs to be in the privilaged process
-    #   so the echo to the /sys is wrapped in a /bin/sh
+    # The output redirection needs to be in the privileged process so
+    #   the echo to /sys/class/leds/led\:* is wrapped in a /bin/sh
     $SUDO_CND /bin/sh <<EOS
         echo none > /sys/class/leds/led\:hdd1\:red/trigger
         echo none > /sys/class/leds/led\:hdd2\:red/trigger
