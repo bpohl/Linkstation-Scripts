@@ -15,7 +15,7 @@ exec 1>&2
 
 ## Set variable defaults
 : ${DAEMON:=/usr/sbin/thd}
-: ${NAME:="$(basename "$0")"}
+: ${NAME:="$(name=$(basename "$0");echo ${name%\.sh})"}
 : ${PIDFILE:="/var/run/$NAME.pid"}
 
 # Exit if the package is not installed
@@ -47,7 +47,7 @@ function do_start () {
 
   triggers="$(grep -A 100 '^### TRIGGERS' "$0" | grep -v "^#")"
   echo -e "\nPreparing to use triggers:\n$triggers"
-  exec -a "$NAME" "$DAEMON" --daemon                          \
+  exec -a "$NAME" "$DAEMON" --daemon          \
             --triggers <(echo -e "$triggers") \
             --pidfile "$PIDFILE"              \
             /dev/input/event*                 \
@@ -56,7 +56,7 @@ function do_start () {
 
 # Stop the process
 function do_stop () {
-  echo "Killing the shutdown thd process..."
+  echo "Killing the shutdown $NAME process..."
   do_status
   case $? in
     41)
@@ -71,7 +71,7 @@ function do_stop () {
       rm_pidfile
       ;;
     43)
-      echo -e "\nCheck if the thd daemon is running and kill it manually."
+      echo -e "\nCheck if the $NAME daemon is running and kill it manually."
       ;;
   esac
 }
