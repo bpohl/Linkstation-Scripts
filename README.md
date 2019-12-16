@@ -5,9 +5,11 @@ I wanted a place to stash any scripts I write to configure my Buffalo LS220D NAS
 
 ## Scripts
 
-### ls-disk-led
+### ls-led-control
 
-A script run at boot by init to make the disk LEDs flash on disk access.  Even though there are two LEDs, marked one for each drive, there doesn't seem to be triggers that distinguish between the drives.  Therefor, the disk1 light is read activity and disk2 light is write activity.
+A script run at boot by init to turn the LEDs on and off, or to flash on disk access or other triggers.
+
+The config file contains the list of LEDs to set and the action to assign to them.
 
 The script itself needs to run with root privileges, which it will when executed by init.  To be able to run it from a regular user account, you will need `sudo` installed.
 
@@ -36,7 +38,9 @@ Unless otherwise noted above, most of these scripts are meant to be handled by t
     sudo ln -s /usr/local/sbin/service-name.sh /etc/init.d/service-name
     sudo update-rc.d service-name defaults
 
-4\. Reboot.
+4\. If there is an accompanying `.conf` file then copy it to `/etc`.
+
+5\. Reboot.
 
 
 ## Acknowledgments
