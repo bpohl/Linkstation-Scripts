@@ -20,7 +20,7 @@ Makes turning the power switch to the OFF position execute the command `shutdown
 
 The package [TriggerHappy](http://manpages.ubuntu.com/manpages/bionic/man1/thd.1.html) is needed to watch for the switch state to change.  Install TriggerHappy with:
 
-    apt install TriggerHappy
+    apt install triggerhappy
 
 
 ## Installation
