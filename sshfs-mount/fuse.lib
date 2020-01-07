@@ -1,0 +1,39 @@
+#!/bin/bash
+# Used for making mountpoints for Fuse disks
+
+: ${FUSE_ROOT:="/media/$USER/fuse"}
+: ${FUSE_USER:="$USER"}
+: ${FUSE_GROUP:="$(groups)"}
+FUSE_GROUP="${FUSE_GROUP%% *}"
+: ${FUSE_PERMISSIONS:="775"}
+
+# Creat the mountpoint and upper directories.
+# Must be given a full path to create.
+function fuse-mountpoint () {
+
+  # Sort out if the dir needs to be created using admin privs
+  if ! mkdir -p "$1" >/dev/null 2>&1; then
+    if tty -s; then
+      sudo -v
+    else
+      if which zenity >/dev/null 2>&1; then
+        zenity --forms                            \
+               --title="Local Admin Password"     \
+               --text="Enter password for $USER." \
+               --add-password=""                  \
+               --separator=$'\n'                  \
+          | sudo -Sv
+      else
+        echo "Zenity is not installed."
+        return 1
+      fi
+    fi
+
+    # Make the dir and make it accessable
+    sudo mkdir -p "$1" || return 2
+    sudo chown "$FUSE_USER":"$FUSE_GROUP" "$1"
+    sudo chmod $FUSE_PERMISSIONS "$1"
+  fi
+  
+  return 0
+}
