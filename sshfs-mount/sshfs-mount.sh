@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 # Creates a unique mountpoint for a sshfs share and mounts the remote disk.
 #
 #  ssh-mount.sh [user@]host:[/dir/path]
